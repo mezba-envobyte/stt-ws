@@ -42,13 +42,15 @@ wss.on("connection", (ws) => {
       if (isCommand) {
         if (data.type === "start") {
           console.log(`▶️ Start session ${sessionId}`);
+          const languageCode = data.languageCode || "en-US";
+          console.log(`ℹ️ Language: ${languageCode}`);
 
           recognizeStream = speechClient
             .streamingRecognize({
               config: {
                 encoding: "LINEAR16",
                 sampleRateHertz: 16000,
-                languageCode: "bn-IN",
+                languageCode: languageCode,
                 enableAutomaticPunctuation: true,
               },
               interimResults: true,
